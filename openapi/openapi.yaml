@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Tasks API
+  version: 1.0.0
+paths:
+  /tasks:
+    get:
+      summary: Get all tasks
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      summary: Create task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+      responses:
+        '201':
+          description: Task created
+  /tasks/{id}:
+    patch:
+      summary: Update a task by ID
+      tags:
+        - tasks
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the task
+          required: true
+          schema:
+            type: integer
+            format: uint64
+      requestBody:
+        description: The data task to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: The updated task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      summary: Delete a task by ID
+      tags:
+        - tasks
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the task
+          required: true
+          schema:
+            type: integer
+            format: uint64
+      responses:
+        '204':
+          description: Task deleted
+        
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - user_id
+        - description
