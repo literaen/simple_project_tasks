@@ -16,7 +16,6 @@ import (
 	oapihandler "github.com/literaen/simple_project/tasks/internal/oapi/handler"
 
 	"github.com/literaen/simple_project/tasks/internal/tasks"
-	"github.com/literaen/simple_project/tasks/internal/users"
 
 	"github.com/literaen/simple_project/pkg/postgres"
 	"github.com/literaen/simple_project/pkg/redis"
@@ -42,7 +41,6 @@ func InitApp() (*App, error) {
 		redis.NewRDB,
 
 		grpcclient.NewUserGRPCClient,
-		users.NewUserService,
 
 		oapihandler.NewTaskHandler,
 

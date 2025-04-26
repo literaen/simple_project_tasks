@@ -3,7 +3,7 @@ package grpchandler
 import (
 	"context"
 
-	taskpb "github.com/literaen/simple_project/proto/gen"
+	taskpb "github.com/literaen/simple_project/api"
 
 	"github.com/literaen/simple_project/tasks/internal/tasks"
 

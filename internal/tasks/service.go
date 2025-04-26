@@ -4,16 +4,16 @@ import (
 	"context"
 	"time"
 
-	"github.com/literaen/simple_project/tasks/internal/users"
+	grpcclient "github.com/literaen/simple_project/tasks/internal/grpc/client"
 )
 
 type TaskService struct {
-	repo       TaskRepository
-	userClient *users.UserService
+	repo           TaskRepository
+	userGRPCClient *grpcclient.UserGRPCClient
 }
 
-func NewTaskService(repo TaskRepository, userClient *users.UserService) *TaskService {
-	return &TaskService{repo: repo, userClient: userClient}
+func NewTaskService(repo TaskRepository, userGRPCClient *grpcclient.UserGRPCClient) *TaskService {
+	return &TaskService{repo: repo, userGRPCClient: userGRPCClient}
 }
 
 func (s *TaskService) GetAllTasks() ([]Task, error) {
@@ -33,7 +33,7 @@ func (s *TaskService) PostTask(task *Task) error {
 	defer cancel()
 
 	// Проверяем, существует ли пользователь
-	if err := s.userClient.GetUser(ctx, task.UserID); err != nil {
+	if err := s.userGRPCClient.GetUser(ctx, task.UserID); err != nil {
 		return err
 	}
 
@@ -46,7 +46,7 @@ func (s *TaskService) PatchTaskByID(id uint64, task *Task) (*Task, error) {
 
 	// Проверяем, существует ли пользователь
 	if task.UserID != 0 {
-		if err := s.userClient.GetUser(ctx, task.UserID); err != nil {
+		if err := s.userGRPCClient.GetUser(ctx, task.UserID); err != nil {
 			return nil, err
 		}
 	}

@@ -12,7 +12,7 @@ import (
 
 	grpcserver "github.com/literaen/simple_project/pkg/grpc/server"
 
-	taskpb "github.com/literaen/simple_project/proto/gen"
+	taskpb "github.com/literaen/simple_project/api"
 )
 
 type TaskGRPCServer struct {

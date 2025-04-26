@@ -5,7 +5,7 @@ go 1.23.3
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/wire v0.6.0
-	github.com/literaen/simple_project v0.0.7
+	github.com/literaen/simple_project v0.0.8
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/stretchr/testify v1.9.0
 	google.golang.org/grpc v1.71.1

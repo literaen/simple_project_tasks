@@ -17,7 +17,6 @@ import (
 	"github.com/literaen/simple_project/tasks/internal/kafka/consumer"
 	"github.com/literaen/simple_project/tasks/internal/oapi/handler"
 	"github.com/literaen/simple_project/tasks/internal/tasks"
-	"github.com/literaen/simple_project/tasks/internal/users"
 )
 
 // Injectors from wire.go:
@@ -33,8 +32,7 @@ func InitApp() (*App, error) {
 	rdb := redis.NewRDB(redis_CREDS)
 	taskRepository := tasks.NewTaskRepository(gdb, rdb)
 	userGRPCClient := grpcclients.NewUserGRPCClient(configConfig)
-	userService := users.NewUserService(userGRPCClient)
-	taskService := tasks.NewTaskService(taskRepository, userService)
+	taskService := tasks.NewTaskService(taskRepository, userGRPCClient)
 	taskHandler := oapihandler.NewTaskHandler(taskService)
 	grpchandlerTaskHandler := grpchandler.NewTaskHandler(taskService)
 	taskGRPCServer := grpcserver.NewTaskGRPCServer(configConfig, grpchandlerTaskHandler)
